@@ -40,8 +40,10 @@ class Master:
         return resultado
 
     def write(self, *args):
+
         espaciolibre= TODOLOCO
         print(HOla me llamo sergio)
+
         f = open(args[0][0])
         aux=f.read()
         self.database += f.buffer.name+" ;"
