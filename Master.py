@@ -41,6 +41,7 @@ class Master:
 
     def write(self, *args):
         espaciolibre= TODO
+        print(HOla me llamo sergio)
         f = open(args[0][0])
         aux=f.read()
         self.database += f.buffer.name+" ;"
