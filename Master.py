@@ -58,8 +58,10 @@ class Master:
         for i in dict:
             print (dict[i])
         j=0
+        auxPos=self.slaveDB["S"+str(j)].database
         for i in dict:
             longitud= len(self.slaveDB["S"+str(j)].database)
+            
             if(longitud==self.slaveDB["S"+str(j)].memory):
                 j=j+1
                 m=0
