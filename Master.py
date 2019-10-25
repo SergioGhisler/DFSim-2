@@ -34,16 +34,12 @@ class Master:
             slave=a[0]
             pos=a[1]
             
-            resultado=resultado+self.slaveDB[slave].read(pos)
+            resultado=resultado+self.slaveDB[slave].read(pos,self.memoryBlock)
 
 
         return resultado
 
     def write(self, *args):
-
-        espaciolibre= TODOLOCO
-        print(HOla me llamo sergio)
-
         f = open(args[0][0])
         aux=f.read()
         self.database += f.buffer.name+" ;"
@@ -58,27 +54,20 @@ class Master:
         for i in dict:
             print (dict[i])
         j=0
-        auxPos=self.slaveDB["S"+str(j)].database
+        m=0
         for i in dict:
-            longitud= len(self.slaveDB["S"+str(j)].database)
             
-            if(longitud==self.slaveDB["S"+str(j)].memory):
-                j=j+1
-                m=0
-            else:
-                if(longitud==0):
-                    m=0
-                    
-                if(longitud==16):
-                    m=1
-                if(longitud==32):
-                    m=2
-                if(longitud==48):
-                    m=3
             self.slaveDB["S"+str(j)].write(dict[i])
                 
             aux2="S"+str(j)+":"+str(m)+";"
             self.database += aux2
+            longitud= len(self.slaveDB["S"+str(j)].database)
+            if(longitud==self.slaveDB["S"+str(j)].memory):
+                j=j+1
+                m=0
+            else:
+                m+=1
+            
             
 
         print(self.database)

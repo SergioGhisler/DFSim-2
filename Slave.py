@@ -18,14 +18,8 @@ class Slave:
 
     def read(self, *args):
         pos=int(args[0])
-        if(pos==0):
-            return self.database[0:16]
-        if(pos==1):
-            return self.database[16:32]
-        if(pos==2):
-            return self.database[32:48]
-        if(pos==3):
-            return self.database[48:64]
+        return self.database[pos*int(args[1]):pos*int(args[1])+int(args[1])]
+        
 
     def write(self, *args):
         self.database += args[0]
