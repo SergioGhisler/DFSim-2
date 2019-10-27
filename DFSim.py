@@ -28,6 +28,9 @@ def read(*args):
 def write(*args):
     masterNode.write(*args)
 
+def delete(*args):
+    masterNode.delete(*args)
+
 
 ############################################
 #       MODIFICAR A PARTIR DE AQUI         #
@@ -37,7 +40,8 @@ def write(*args):
 commands = {
     "salir": quit,
     "leer": read,
-    "escribir": write
+    "escribir": write,
+    "borrar":delete
 }
 
 out = False

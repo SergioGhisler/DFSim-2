@@ -25,3 +25,10 @@ class Slave:
         self.database += args[0]
 
         return None
+
+    def delete(self, *args):
+        pos=int(args[0])
+        sust= "#" * int(args[1])
+        self.database=self.database.replace( self.database[pos*int(args[1]):pos*int(args[1])+int(args[1])],sust)
+       
+        return None

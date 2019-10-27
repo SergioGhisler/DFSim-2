@@ -40,7 +40,7 @@ class Master:
         doc=open('lectura_'+args[0][0],'a')
         doc.write(resultado)
         doc.close()
-        return resultado
+        return None
 
     def write(self, *args):
 
@@ -92,4 +92,34 @@ class Master:
             
        
         print(len(self.database))
+        return None
+
+
+    def delete(self, *args):
+            
+        aux=self.database.split(";")
+        nombre=aux.index(args[0][0])
+        del aux[-1]
+        j=0
+        
+        lon=int(aux[nombre+1])
+        aux2=aux[nombre+2:nombre+2+lon]
+       
+        
+        
+        
+        for i in aux2:
+            
+            a=i.split(":")
+            slave=a[0]
+            pos=a[1]
+            
+            self.slaveDB[slave].delete(pos,self.memoryBlock)
+
+        del aux[nombre:nombre+2+lon]
+        
+        self.database=';'.join(aux)
+        if aux:
+            self.database+=';'
+        print(self.database)
         return None
