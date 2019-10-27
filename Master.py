@@ -37,7 +37,8 @@ class Master:
             
             resultado=resultado+self.slaveDB[slave].read(pos,self.memoryBlock)
 
-
+        doc=Path(args[0][0]).touch()
+        doc.write(resultado)
         return resultado
 
     def write(self, *args):
@@ -63,7 +64,6 @@ class Master:
         z= math.ceil(len(aux)/self.memoryBlock)
         # la z la anadimos para tener el metadato de la longitud
         self.database += f.buffer.name+";"+str(z)+";"
-
         
         dict={}
         for k in range(z):
