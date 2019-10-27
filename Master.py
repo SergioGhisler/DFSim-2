@@ -37,8 +37,9 @@ class Master:
             
             resultado=resultado+self.slaveDB[slave].read(pos,self.memoryBlock)
 
-        doc=open('lectura_'+args[0][0],'+w')
+        doc=open('lectura_'+args[0][0],'a')
         doc.write(resultado)
+        doc.close()
         return resultado
 
     def write(self, *args):
