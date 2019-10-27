@@ -37,7 +37,7 @@ class Master:
             
             resultado=resultado+self.slaveDB[slave].read(pos,self.memoryBlock)
 
-        doc=Path(args[0][0]).touch()
+        doc=open('lectura_'+args[0][0],'+w')
         doc.write(resultado)
         return resultado
 
