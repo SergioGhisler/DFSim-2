@@ -37,8 +37,10 @@ class Master:
             
             resultado=resultado+self.slaveDB[slave].read(pos,self.memoryBlock)
 
-
-        return resultado
+        doc=open('lectura_'+args[0][0],'a')
+        doc.write(resultado)
+        doc.close()
+        return None
 
     def write(self, *args):
 
@@ -63,10 +65,10 @@ class Master:
         z= math.ceil(len(aux)/self.memoryBlock)
         # la z la anadimos para tener el metadato de la longitud
         self.database += f.buffer.name+";"+str(z)+";"
-
         
         dict={}
         for k in range(z):
+            #Con ljust nos aseguramos que todos los bloques sean del mismo tamano
             dict["S"+str(k)] = aux[0:self.memoryBlock].ljust(self.memoryBlock)
 
             aux = aux[self.memoryBlock ::]
@@ -91,4 +93,49 @@ class Master:
             
        
         print(len(self.database))
+        return None
+
+
+    def delete(self, *args):
+            
+        aux=self.database.split(";")
+        nombre=aux.index(args[0][0])
+        del aux[-1]
+        j=0
+        
+        lon=int(aux[nombre+1])
+        aux2=aux[nombre+2:nombre+2+lon]
+       
+        get_indexes = lambda x, xs: [i for (y, i) in zip(xs, range(len(xs))) if x in y]
+        
+        
+        for i in reversed(aux2):
+            
+            a=i.split(":")
+            slave=a[0]
+            pos=int(a[1])
+            max=int(self.slaveDB[slave].memory/self.memoryBlock)-1
+            if pos!=max:
+                if(len(self.slaveDB[slave].database)==self.database):
+                    self.slaveDB[slave].delete(pos,self.memoryBlock)
+                else:
+                    indices=get_indexes(slave+':',aux)
+                    
+                    for p in indices:
+                        if int(aux[p].split(':')[1])>pos:
+                            
+                            aux[p]=aux[p].split(':')[0]+':'+str(int(aux[p].split(':')[1])-1)
+                            
+                        
+                        
+                        
+
+            self.slaveDB[slave].delete(pos,self.memoryBlock)
+
+        del aux[nombre:nombre+2+lon]
+        
+        self.database=';'.join(aux)
+        if aux:
+            self.database+=';'
+        print(self.database)
         return None

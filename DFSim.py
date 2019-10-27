@@ -5,7 +5,7 @@ from Slave import Slave
 #               NO TOCAR                   #
 ############################################
 
-SLAVE_NUM = 1000000  # Numero de nodos esclavos a simular
+SLAVE_NUM = 1000  # Numero de nodos esclavos a simular
 SLAVE_MEMORY = 128  # Tamanyo maximo de la memoria de cada nodo esclavo
 MASTER_MEMBLOCK = 32  # Tamanyo del bloque de memoria de la base de datos, expresado en numero de caracteres
 
@@ -28,6 +28,9 @@ def read(*args):
 def write(*args):
     masterNode.write(*args)
 
+def delete(*args):
+    masterNode.delete(*args)
+
 
 ############################################
 #       MODIFICAR A PARTIR DE AQUI         #
@@ -37,7 +40,8 @@ def write(*args):
 commands = {
     "salir": quit,
     "leer": read,
-    "escribir": write
+    "escribir": write,
+    "borrar":delete
 }
 
 out = False
