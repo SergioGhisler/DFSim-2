@@ -5,7 +5,7 @@ from Slave import Slave
 #               NO TOCAR                   #
 ############################################
 
-SLAVE_NUM = 1000000  # Numero de nodos esclavos a simular
+SLAVE_NUM = 1000  # Numero de nodos esclavos a simular
 SLAVE_MEMORY = 128  # Tamanyo maximo de la memoria de cada nodo esclavo
 MASTER_MEMBLOCK = 32  # Tamanyo del bloque de memoria de la base de datos, expresado en numero de caracteres
 
