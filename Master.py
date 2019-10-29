@@ -59,9 +59,8 @@ class Master:
                 j=j+1
                 m=0
            
-        
->>>>>>> ab1d3304401f2cad26e96cf5541c9ee8ec4c9d25
         f = open(args[0][0])
+        
         aux=f.read()
         z= math.ceil(len(aux)/self.memoryBlock)
         # la z la anadimos para tener el metadato de la longitud
