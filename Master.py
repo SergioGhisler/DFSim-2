@@ -41,8 +41,9 @@ class Master:
 
     def write(self, *args):
 
-        espaciolibre= TODOLOCO
-        print(HOla me llamo sergio)
+        slave_memory = self.slaveDB['S0'].memory
+        for i in self.slaveDB:
+            len(self.slaveDB[i].database)
 
         f = open(args[0][0])
         aux=f.read()
