@@ -61,6 +61,7 @@ class Master:
            
         
         f = open(args[0][0])
+        
         aux=f.read()
         z= math.ceil(len(aux)/self.memoryBlock)
         # la z la anadimos para tener el metadato de la longitud
