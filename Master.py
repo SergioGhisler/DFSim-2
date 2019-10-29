@@ -44,6 +44,9 @@ class Master:
 
     def write(self, *args):
 
+        
+
+
         j=0
         m=0
         #Si ya hay algo guardado en memoria seguir por donde lo dejol
@@ -58,7 +61,7 @@ class Master:
             if(len(self.slaveDB["S"+str(j)].database)==self.slaveDB["S"+str(j)].memory):
                 j=j+1
                 m=0
-           
+
         f = open(args[0][0])
         
         aux=f.read()
