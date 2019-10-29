@@ -61,10 +61,9 @@ class Master:
             if(len(self.slaveDB["S"+str(j)].database)==self.slaveDB["S"+str(j)].memory):
                 j=j+1
                 m=0
-           
-        
 
         f = open(args[0][0])
+        
         aux=f.read()
         z= math.ceil(len(aux)/self.memoryBlock)
         # la z la anadimos para tener el metadato de la longitud
