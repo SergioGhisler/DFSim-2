@@ -22,9 +22,10 @@ class Slave:
         
 
     def write(self, *args):
+        pos=len(self.database)/args[1]
         self.database += args[0]
 
-        return None
+        return pos
 
     def delete(self, *args):
         pos=int(args[0])
