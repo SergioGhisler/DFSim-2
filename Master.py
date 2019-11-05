@@ -1,6 +1,8 @@
 import math
 import random
 import re
+from time import time
+import os
 class Master:
     ############################################
     #               NO TOCAR                   #
@@ -21,8 +23,11 @@ class Master:
     ############################################
 
     def read(self, *args):
-
+        tiempoInicial= time()
         aux = self.database.split(";")
+        if not args[0][0]+"$%&" in aux:
+            print("No existe ese archivo")
+            return None
         nombre = aux.index(args[0][0]+"$%&")
         del aux[-1]
         j = 0
@@ -46,9 +51,13 @@ class Master:
         doc.truncate()
         doc.write(resultado)
         doc.close()
+        
+        tiempoFinal=time()
+        tiempoTotal= tiempoFinal-tiempoInicial
+        print("lectura"+str(tiempoTotal))
         return None
-
     def wirteSecuencial(self, *args):
+        tiempoInicial= time()
         j = 0
         for k in args[0]:
             successful = False
@@ -70,10 +79,13 @@ class Master:
                         j += 1
                     successful=True
                 
+        tiempoFinal=time()
+        tiempoTotal= tiempoFinal-tiempoInicial
+        print("escritura"+str(tiempoTotal))
 
-
-        print(self.database)
+        
     def writeAleatorio(self,*args):
+        tiempoInicial= time()
         j = 0
         noLlenos=dict(self.slaveDB)
         for k in args[0]:
@@ -89,8 +101,11 @@ class Master:
                     pos = int(self.slaveDB[aux].write(texto, self.memoryBlock))
                     self.database += aux+':'+str(pos)+";"
                     successful=True
-        print(self.database)           
+        tiempoFinal=time()
+        tiempoTotal= tiempoFinal-tiempoInicial
+        print("escritura"+str(tiempoTotal))           
     def writePrimeroVacio(self, *args):
+        tiempoInicial= time()
         vuelta=0
         for i in args[0]:
             texto=args[0][i]
@@ -109,8 +124,11 @@ class Master:
                         vuelta+=1
                     break
 
-        print(self.database)
+        tiempoFinal=time()
+        tiempoTotal= tiempoFinal-tiempoInicial
+        print("escritura"+str(tiempoTotal))     
     def writeMaximaCarga(self,*args):
+        tiempoInicial= time()
         for i in args[0]:
             texto=args[0][i]
             for j in self.slaveDB:
@@ -121,7 +139,9 @@ class Master:
                     self.database+=j+':'+str(pos)+";"
                     break
 
-        print(self.database)
+        tiempoFinal=time()
+        tiempoTotal= tiempoFinal-tiempoInicial
+        print("escritura"+str(tiempoTotal))     
 
 
 
@@ -133,19 +153,25 @@ class Master:
         memoriaMaxima = int(len(self.slaveDB)*(self.slaveDB[list(self.slaveDB)[0]].memory/self.memoryBlock))
         
         
+        
         switcher = {
             1: self.writePrimeroVacio,
             2: self.writeAleatorio,
             3: self.wirteSecuencial,
             4: self.writeMaximaCarga
         }
-
+        if not os.path.isfile(args[0][0]):
+            print('Ese archivo no existe')
+            return None
         f = open(args[0][0])
         
         # la z la anadimos para tener el metadato de la longitud
         aux=f.read()
         z= math.ceil(len(aux)/self.memoryBlock)
         aux2= self.database.split(";")
+        if  args[0][0]+"$%&" in aux2:
+            print("Ya existe este archivo")
+            return None
         dict={}
         for k in range(z):
             # Con ljust nos aseguramos que todos los bloques sean del mismo tamano
