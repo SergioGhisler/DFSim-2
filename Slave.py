@@ -1,4 +1,5 @@
 import random
+import re
 class Slave:
     ############################################
     #               NO TOCAR                   #
@@ -34,7 +35,7 @@ class Slave:
 
 
         if operacion == "palabras":
-            texto= texto.split()
+            texto= re.split('\W+',texto)
             for i in texto:
                 d[i]= len(i)
 

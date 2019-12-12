@@ -92,6 +92,10 @@ class Master:
             for i in aux:
 
                 resultado.append(i[1])
+
+        if '' in resultado:
+            index=resultado.index('')
+            del resultado[index]
         print(resultado)
 
         return resultado
