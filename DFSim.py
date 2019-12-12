@@ -5,9 +5,9 @@ from Slave import Slave
 #               NO TOCAR                   #
 ############################################
 
-SLAVE_NUM = 2000  # Numero de nodos esclavos a simular
-SLAVE_MEMORY = 64  # Tamanyo maximo de la memoria de cada nodo esclavo
-MASTER_MEMBLOCK = 16  # Tamanyo del bloque de memoria de la base de datos, expresado en numero de caracteres
+SLAVE_NUM = 5000  # Numero de nodos esclavos a simular
+SLAVE_MEMORY = 4096  # Tamanyo maximo de la memoria de cada nodo esclavo
+MASTER_MEMBLOCK = 256  # Tamanyo del bloque de memoria de la base de datos, expresado en numero de caracteres
 
 slaveNodes = {"S" + str(k): Slave("S" + str(k), SLAVE_MEMORY) for k in range(0, SLAVE_NUM)}
 masterNode = Master(slaveNodes, MASTER_MEMBLOCK)
@@ -30,7 +30,8 @@ def write(*args):
 
 def delete(*args):
     masterNode.delete(*args)
-
+def mapReduce(*args):
+    masterNode.mapReduce(*args)
 
 ############################################
 #       MODIFICAR A PARTIR DE AQUI         #
@@ -41,13 +42,16 @@ commands = {
     "salir": quit,
     "leer": read,
     "escribir": write,
-    "borrar":delete
+    "borrar":delete,
+    "mapReduce":mapReduce
 }
 
 out = False
 
 # Bucle principal de ejecucion
+
 while not out:
+    
     command = input("[DFSim]>> ")  # Introducir una instruccion
     parsed = [i for i in command.split(" ") if i != '']  # Separar la instruccion
     f = parsed[0]  # Extraer el nombre del comando
